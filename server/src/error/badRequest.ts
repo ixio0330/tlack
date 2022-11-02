@@ -1,11 +1,9 @@
-import CustomError from ".";
-
-export default class BadRequest implements CustomError {
+export default class BadRequest extends Error {
   status = 400;
   message = '';
   name = '';
   constructor(message = '잘못된 요청입니다.') {
-    this.message = message;
+    super(message);
     this.name = 'Bad Gateway';
   }
 }

@@ -18,11 +18,12 @@ class Database {
       password: process.env.DATABASE_PASSWORD,
       port: parseInt(process.env.DATABASE_PORT as string) || 5432,
     });
+    
     try {
       await this.database.connect();
     } catch (error) {
       console.log(error);
-      throw new Error('서버 내부 오류가 발생했습니다.');
+      throw new Error('데이터베이스 연결 중 오류가 발생했습니다.');
     }
   }
 

@@ -1,8 +1,10 @@
-import express, { Request, Response, NextFunction } from "express";
+import express from "express";
 import { Server } from 'socket.io';
 import { createServer } from 'http';
-import CustomError from "./error";
 import MethodNotAllowed from "./error/methodNotAllowed";
+import authRouter from './auth/auth.controller';
+import ErrorMiddleware from "./middleware/error";
+import 'express-async-errors';
 
 const app = express();
 app.use(express.json());
@@ -21,15 +23,17 @@ server.listen(PORT, HOST, () => {
   console.log(`Server run : http://${HOST}:${PORT}`);
 });
 
+app.use((req, res, next) => {
+  console.log(`[${req.method}] ${req.path} | ${new Date().toLocaleString()}`);
+  next();
+});
+
+app.use('/auth', authRouter);
+
+// 사용하지 않는 method 처리
 app.all('*', (res, req) => {
   throw new MethodNotAllowed();
 });
 
-app.use((error: CustomError, req: Request, res: Response, next: NextFunction) => {
-  res
-    .status(error.status || 500)
-    .send({ 
-      name: error.name || 'Internal Server Error',
-      message: error.message || '서버 내부에서 오류가 발생했습니다.'
-    });
-});
+// 에러 처리 미들웨어
+app.use(ErrorMiddleware);

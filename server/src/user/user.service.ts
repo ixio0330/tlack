@@ -1,6 +1,6 @@
 import BadRequest from '../error/badRequest';
 import crypto from '../utils/crypto';
-import { CreateUserDto, UpdateUserDto } from './user.dto';
+import { CreateUserDto, UpdateUserDto, UserEntity } from './user.dto';
 import userStorage from './user.storage';
 
 class UserService {
@@ -9,7 +9,7 @@ class UserService {
     if (user === null) {
       throw new BadRequest('존재하지 않는 사용자입니다.');
     }
-    return user;
+    return user as UserEntity;
   }
 
   async create(user: CreateUserDto) {
