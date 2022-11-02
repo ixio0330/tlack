@@ -12,9 +12,13 @@ class UserStorage {
   }
 
   async create({ id, password, salt, nickname, status }: UserEntity) {
-    return await database.query(`
-      insert into users (id, password, salt, nickname, status) values ('${id}', '${password}', '${salt}', '${nickname}', '${status}')
-    `);
+    try {
+      return await database.query(`
+        insert into users (id, password, salt, nickname, status) values ('${id}', '${password}', '${salt}', '${nickname}', '${status})
+      `);
+    } catch (error) {
+      throw new Error('사용자 생성 중 오류가 발생했습니다.');
+    }
   }
 
   async update({ id, nickname, status }: UpdateUserDto) {
@@ -28,14 +32,11 @@ class UserStorage {
     if (!nickname && status) {
       query = `update users set status='${status}' where id='${id}'`;
     }
-
-    console.log(query);
-
-    return await database.query(query);
-  }
-
-  async updateStatus() {
-    
+    try {
+      return await database.query(query); 
+    } catch (error) {
+      throw new Error('사용자 수정 중 오류가 발생했습니다.');
+    }
   }
 }
 

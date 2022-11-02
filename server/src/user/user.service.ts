@@ -17,26 +17,18 @@ class UserService {
       throw new BadRequest('이미 존재하는 사용자입니다.');
     }
     
-    try {
-      const { hashPassword, salt } = await crypto.createHashedPassword(user.password);
-      await userStorage.create({
-        ...user,
-        password: hashPassword,
-        salt,
-        status: 'offline',
-      });
-    } catch (error) {
-      throw new Error('사용자 생성 중 오류가 발생했습니다.');
-    }
+    const { hashPassword, salt } = await crypto.createHashedPassword(user.password);
+    await userStorage.create({
+      ...user,
+      password: hashPassword,
+      salt,
+      status: 'offline',
+    });
   }
 
   async update(user: UpdateUserDto) {
-    try {
-      await this.getById(user.id);
-      await userStorage.update(user);
-    } catch (error) {
-      throw new Error('사용자 수정 중 오류가 발생했습니다.');
-    }
+    await this.getById(user.id);
+    await userStorage.update(user);
   }
 }
 

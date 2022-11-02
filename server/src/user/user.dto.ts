@@ -1,10 +1,7 @@
 type UserStatus = 'online' | 'offline' | 'empty' | 'busy';
 
-export interface UserEntity {
-  id: string;
-  nickname: string;
+export interface UserEntity extends CreateUserDto {
   status: UserStatus;
-  password: string;
   salt: string;
 }
 

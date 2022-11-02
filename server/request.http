@@ -18,3 +18,12 @@
 # GET http://127.0.0.1:9000/auth/user
 # Content-Type: application/json
 # Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE2NjczNTUxMDUsImV4cCI6MTY2NzQ0MTUwNX0.CWUnZ49s6tgn2JjUOH6B0F-tl3DqOcr71gR1ILWvc0Q
+
+# POST http://127.0.0.1:9000/workspace
+# Content-Type: application/json
+# Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE2NjczNTUxMDUsImV4cCI6MTY2NzQ0MTUwNX0.CWUnZ49s6tgn2JjUOH6B0F-tl3DqOcr71gR1ILWvc0Q
+
+# {
+#   "name": "워크스페이스1",
+#   "description": "테스트 용"
+# }

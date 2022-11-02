@@ -1,10 +1,10 @@
 import express from "express";
 import { Server } from 'socket.io';
 import { createServer } from 'http';
-import withAsync from "./utils/withAsync";
 import MethodNotAllowed from "./error/methodNotAllowed";
-import authRouter from './auth/auth.controller';
 import ErrorMiddleware from "./middleware/error";
+import authRouter from './auth/auth.controller';
+import workspaceRouter from './workspace/workspace.controller';
 
 const app = express();
 app.use(express.json());
@@ -29,6 +29,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/auth', authRouter);
+app.use('/workspace', workspaceRouter);
 
 // 사용하지 않는 method 처리
 app.all('*', (res, req, next) => {
