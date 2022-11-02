@@ -4,13 +4,16 @@ import BadRequest from '../error/badRequest';
 import userService from '../user/user.service';
 import crypto from '../utils/crypto';
 import jwt from '../utils/jwt';
+import tokenMiddleware from '../middleware/token';
 
 const router = express.Router();
 
 router.post('/signup', withAsync(async (req, res) => {
   await userService.create(req.body);
   res.send({
-    token: jwt.getToken(req.body.id),
+    name: '회원가입 성공',
+    type: 'success',
+    message: '회원가입을 완료했습니다.'
   });
 }));
 
@@ -24,8 +27,22 @@ router.post('/signin', withAsync(async (req, res) => {
   if (!isValid) {
     throw new BadRequest('비밀번호가 일치하지 않습니다.');
   }
+  await userService.update({
+    id: user.id,
+    status: 'online'
+  });
   res.send({
     token: jwt.getToken(req.body.id),
+  });
+}));
+
+router.get('/user', tokenMiddleware, withAsync(async (req, res) => {
+  console.log(req.body.user_id);
+  const user = await userService.getById(req.body.user_id);
+  res.send({  
+    id: user.id,
+    nickname: user.nickname,
+    status: user.status,
   });
 }));
 

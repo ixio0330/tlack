@@ -4,6 +4,7 @@ const ErrorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
     .status(err.status || 500)
     .send({ 
       name: err.name || 'Internal Server Error',
+      type: err.type || 'error',
       message: err.message || '서버 내부에서 오류가 발생했습니다.'
     });
 }
