@@ -4,6 +4,7 @@ export default class BadRequest extends Error {
   name = '';
   constructor(message = '잘못된 요청입니다.') {
     super(message);
+    this.message = message;
     this.name = 'Bad Gateway';
   }
 }

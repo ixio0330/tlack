@@ -1,7 +1,5 @@
-import { Request, Response, NextFunction } from "express";
-type ErrorHandleMiddleware = (err: any, req: Request, res: Response, next: NextFunction) => any;
-
-const ErrorMiddleware: ErrorHandleMiddleware = (err, req, res, next) => {
+import { ErrorRequestHandler } from "express";
+const ErrorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
   res
     .status(err.status || 500)
     .send({ 

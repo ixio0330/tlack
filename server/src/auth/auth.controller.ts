@@ -1,4 +1,5 @@
 import express from 'express';
+import withAsync from '../utils/withAsync';
 import BadRequest from '../error/badRequest';
 import userService from '../user/user.service';
 import crypto from '../utils/crypto';
@@ -6,14 +7,14 @@ import jwt from '../utils/jwt';
 
 const router = express.Router();
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', withAsync(async (req, res) => {
   await userService.create(req.body);
   res.send({
     token: jwt.getToken(req.body.id),
   });
-});
+}));
 
-router.post('/signin', async (req, res) => {
+router.post('/signin', withAsync(async (req, res) => {
   const user = await userService.getById(req.body.id);
   const isValid = await crypto.verifyPassword({
     hashPassword: user.password,
@@ -26,6 +27,6 @@ router.post('/signin', async (req, res) => {
   res.send({
     token: jwt.getToken(req.body.id),
   });
-});
+}));
 
 export default router;
