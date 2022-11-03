@@ -38,6 +38,15 @@ class ChannelStorage {
       throw new Error('채널에 사용자 초대 중 오류가 발생했습니다.');
     }
   }
+
+  async getAllChannels(workspace_id: string) {
+    try {
+      const result = await database.query(`select * from channels where workspace_id='${workspace_id}'`);
+      return result?.rows;
+    } catch (error) {
+      throw new Error('채널 조회 중 오류가 발생했습니다.');
+    }
+  }
 }
 
 const channelStorage = new ChannelStorage();

@@ -14,7 +14,7 @@ class UserStorage {
   async create({ id, password, salt, nickname, status }: UserEntity) {
     try {
       return await database.query(`
-        insert into users (id, password, salt, nickname, status) values ('${id}', '${password}', '${salt}', '${nickname}', '${status})
+        insert into users (id, password, salt, nickname, status) values ('${id}', '${password}', '${salt}', '${nickname}', '${status}')
       `);
     } catch (error) {
       throw new Error('사용자 생성 중 오류가 발생했습니다.');

@@ -39,6 +39,10 @@ class ChannelService {
   async invite(invite: InviteChannelDto) {
     return await channelStorage.invite(invite);
   }
+
+  async getAllChannles(workspace_id: string) {
+    return await channelStorage.getAllChannels(workspace_id);
+  }
 }
 
 const channelService = new ChannelService();

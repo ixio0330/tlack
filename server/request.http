@@ -2,8 +2,8 @@
 # Content-Type: application/json
 
 # {
-#   "id": "test1@example.com",
-#   "nickname": "테스터1",
+#   "id": "test3@example.com",
+#   "nickname": "테스터3",
 #   "password": "qwer"
 # }
 
@@ -25,15 +25,16 @@
 
 # {
 #   "name": "워크스페이스1",
-#   "description": "테스트 용"
+#   "description": "테스트 용",
+#   "users": ["test2@example.com", "test3@example.com"]
 # }
 
-POST http://127.0.0.1:9000/channel
-Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE2Njc0MzQ3NDgsImV4cCI6MTY2NzUyMTE0OH0.Fad4QTDj9cW7CFUuK0sKbZ120rsWeVSZ5NC5YeX8FZs
+# POST http://127.0.0.1:9000/channel
+# Content-Type: application/json
+# Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE2Njc0MzQ3NDgsImV4cCI6MTY2NzUyMTE0OH0.Fad4QTDj9cW7CFUuK0sKbZ120rsWeVSZ5NC5YeX8FZs
 
-{
-  "name": "테스트 채널1",
-  "workspace_id": "WzgLs9ixuOrmDAuV",
-  "users": ["test1@example.com", "test2@example.com"]
-}
+# {
+#   "name": "테스트 채널1",
+#   "workspace_id": "oYLsAz6rISew8lI0",
+#   "users": ["test1@example.com", "test2@example.com"]
+# }

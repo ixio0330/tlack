@@ -8,6 +8,10 @@ class WorkspaceService {
   private max_channels = 5;
   private max_participants = 10;
 
+  async getInviteInfo(workspace_id: string, user_id: string) {
+    return await workspaceStorage.getInviteInfo(workspace_id, user_id);
+  }
+
   async getById(workspace_id: string) {
     return await workspaceStorage.getById(workspace_id);
   }

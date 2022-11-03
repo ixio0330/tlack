@@ -3,16 +3,31 @@ import BadRequest from "../error/badRequest";
 import { InviteWorkspaceDto, WorkspaceEntity } from "./workspace.dto";
 
 class WorkspaceStorage {
-  async getById(workspace_id: string) {
+  async getInviteInfo(workspace_id: string, user_id: string) {
+    let result;
     try {
-      const result = await database.query(`select * from workspaces where id='${workspace_id}'`);
-      if (!result) {
-        throw new BadRequest('존재하지 않는 워크스페이스입니다.');
-      }
-      return result.rows[0];
+      result = await database.query(`select * from invites_workspace where workspace_id='${workspace_id}' and user_id='${user_id}'`);
+    } catch (error) {
+      throw new Error('워크스페이스 초대 정보 조회 중 오류가 발생했습니다.');
+    }
+
+    if (!result?.rows[0]) {
+      throw new BadRequest('워크스페이스가 존재하지 않거나, 초대되지 않은 사용자입니다.');
+    }
+    return result.rows[0];
+  }
+  
+  async getById(workspace_id: string) {
+    let result;
+    try {
+      result = await database.query(`select * from workspaces where id='${workspace_id}'`);
     } catch (error) {
       throw new Error('워크스페이스 조회 중 오류가 발생했습니다.');
     }
+    if (!result?.rows.length) {
+      throw new BadRequest('존재하지 않는 워크스페이스입니다.');
+    }
+    return result.rows[0];
   }
 
   async getWorkspaceListLength(owner: string): Promise<number> {

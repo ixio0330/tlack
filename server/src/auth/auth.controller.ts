@@ -37,7 +37,6 @@ router.post('/signin', withAsync(async (req, res) => {
 }));
 
 router.get('/user', tokenMiddleware, withAsync(async (req, res) => {
-  console.log(req.body.user_id);
   const user = await userService.getById(req.body.user_id);
   res.send({  
     id: user.id,
