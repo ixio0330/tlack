@@ -41,7 +41,7 @@ namespace.on('connection', async (socket) => {
     // 초대된 사람인지 체크
     await workspaceService.getInviteInfo(workspace_id, payload.user_id);
     // 채널 목록 가져오기
-    const channelList = await channelService.getAllChannles(workspace_id);
+    const channelList = await channelService.getAllInvitedChannles(workspace_id, payload.user_id);
     // 채널 목록 보내기
     socket.emit('channels', channelList);
   } catch (error) {

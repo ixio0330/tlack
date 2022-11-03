@@ -43,6 +43,10 @@ class ChannelService {
   async getAllChannles(workspace_id: string) {
     return await channelStorage.getAllChannels(workspace_id);
   }
+  
+  async getAllInvitedChannles(workspace_id: string, user_id: string) {
+    return await channelStorage.getAllInvitedChannels(workspace_id, user_id);
+  }
 }
 
 const channelService = new ChannelService();

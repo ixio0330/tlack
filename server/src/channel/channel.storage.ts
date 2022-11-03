@@ -47,6 +47,21 @@ class ChannelStorage {
       throw new Error('채널 조회 중 오류가 발생했습니다.');
     }
   }
+
+  async getAllInvitedChannels(workspace_id: string, user_id: string) {
+    try {
+      const result = await database.query(`
+        select c.id, c.name, c.description
+        from channels c
+          inner join invites_channel ic 
+          on c.id = ic.channel_id
+        where workspace_id='${workspace_id}' and ic.user_id='${user_id}'
+      `);
+      return result?.rows;
+    } catch (error) {
+      throw new Error('채널 조회 중 오류가 발생했습니다.');
+    }
+  }
 }
 
 const channelStorage = new ChannelStorage();
