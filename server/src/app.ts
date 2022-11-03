@@ -6,6 +6,7 @@ import jwt from "./utils/jwt";
 // service
 import workspaceService from "./workspace/workspace.service";
 import channelService from "./channel/channel.service";
+import chatService from "./chat/chat.service";
 
 // error class
 import MethodNotAllowed from "./error/methodNotAllowed";
@@ -44,6 +45,36 @@ namespace.on('connection', async (socket) => {
     const channelList = await channelService.getAllInvitedChannles(workspace_id, payload.user_id);
     // 채널 목록 보내기
     socket.emit('channels', channelList);
+
+    let channel_id = '';
+    // 채널 접속
+    socket.on('join', (_channel_id) => {
+      channel_id = _channel_id;
+      socket.join(channel_id);
+      workspace.in(channel_id).emit('join', `${payload.user_id}가 ${channel_id}에 입장했습니다.`);
+      console.log(`${payload.user_id}가 ${channel_id}에 입장했습니다.`);
+    });
+    // 채널에 접속한 사람에게 메시지 전달
+    socket.on('chat', async (_chat) => {
+      if (!channel_id) return;
+      // 메시지를 보낸 사람을 제외한 사람들에게 메시지 전달
+      socket.broadcast.to(channel_id).emit('chat', _chat);
+      // 채팅 데이터 DB에 저장
+      try {
+        await chatService.create({
+          channel_id,
+          content: _chat,
+          user_id: payload.user_id,
+        });
+      } catch (error) {
+        return;
+      }
+    });
+    // 연결 해제시 채널 나가기
+    socket.on('disconnect', () => {
+      if (!channel_id) return;
+      socket.leave(channel_id);
+    });
   } catch (error) {
     return;
   }

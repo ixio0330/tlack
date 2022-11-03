@@ -42,8 +42,8 @@ class WorkspaceStorage {
   async create({ id, name, owner, description, max_channels, max_participants }: WorkspaceEntity) {
     try {
       return await database.query(`
-        insert into workspaces (id, name, description, owner, max_channels, max_participants) values
-        ('${id}', '${name}', ${description ? `'${description}'` : null}, '${owner}', ${max_channels}, ${max_participants})
+        insert into workspaces (id, name, description, owner, max_channels, max_participants) 
+        values ('${id}', '${name}', ${description ? `'${description}'` : null}, '${owner}', ${max_channels}, ${max_participants})
       `);
     } catch (error) {
       throw new Error('워크스페이스 생성 중 오류가 발생했습니다.');
