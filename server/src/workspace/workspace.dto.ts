@@ -14,12 +14,6 @@ export interface CreateWorkspaceDto {
   users?: string[];
 }
 
-export interface InviteWorkspaceEntity {
-  user_id: string;
-  workspace_id: string;
-  isJoin: boolean;
-}
-
 export interface InviteWorkspaceDto {
   users: string[];
   workspace_id: string;

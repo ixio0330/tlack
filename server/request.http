@@ -27,3 +27,13 @@
 #   "name": "워크스페이스1",
 #   "description": "테스트 용"
 # }
+
+POST http://127.0.0.1:9000/channel
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidGVzdDFAZXhhbXBsZS5jb20iLCJpYXQiOjE2Njc0MzQ3NDgsImV4cCI6MTY2NzUyMTE0OH0.Fad4QTDj9cW7CFUuK0sKbZ120rsWeVSZ5NC5YeX8FZs
+
+{
+  "name": "테스트 채널1",
+  "workspace_id": "WzgLs9ixuOrmDAuV",
+  "users": ["test1@example.com", "test2@example.com"]
+}
