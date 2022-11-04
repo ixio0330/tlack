@@ -1,5 +1,5 @@
 import database from "../database";
-import { ChatEntity } from "./chat.dto";
+import { ChatEntity, GetChatDto } from "./chat.dto";
 
 class ChatStorage {
   async create({ id, user_id, channel_id, content, senttime }: ChatEntity) {
@@ -14,8 +14,22 @@ class ChatStorage {
     }
   }
 
-  async getAllByChannelId() {
-
+  async getAllByChannelId({ channel_id, limit = 10, offset = 0 }: GetChatDto) {
+    try {
+      const result = await database.query(`
+        select c.id, c.senttime, c.content, u.nickname 
+        from chats c
+          inner join users u
+          on c.user_id=u.id
+        where channel_id='${channel_id}'
+        order by senttime desc
+        limit ${limit}
+        offset ${offset}
+      `);
+      return result?.rows;
+    } catch (error) {
+      throw new Error('채팅을 읽어오던 중 문제가 발생했습니다.')
+    }
   }
 }
 

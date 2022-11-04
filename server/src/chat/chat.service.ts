@@ -1,4 +1,4 @@
-import { CreateChatDto } from "./chat.dto";
+import { CreateChatDto, GetChatDto } from "./chat.dto";
 import chatStorage from "./chat.storage";
 import { generateShortUuid } from 'custom-uuid';
 
@@ -11,8 +11,8 @@ class ChatService {
     });
   }
 
-  async getAllByChannelId() {
-
+  async getAllByChannelId(getChat: GetChatDto) {
+    return await chatStorage.getAllByChannelId(getChat);
   }
 }
 

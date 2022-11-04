@@ -45,18 +45,23 @@ namespace.on('connection', async (socket) => {
     const channelList = await channelService.getAllInvitedChannles(workspace_id, payload.user_id);
     // 채널 목록 보내기
     socket.emit('channels', channelList);
-
     let channel_id = '';
     // 채널 접속
-    socket.on('join', (_channel_id) => {
+    socket.on('join', async (_channel_id) => {
       // 기존에 접속했던 채널이 있다면 나가기
       if (channel_id) {
         socket.leave(channel_id);
-        workspace.in(channel_id).emit('join', `${payload.user_name}님이 퇴장했습니다.`);
+        // workspace.in(channel_id).emit('join', `${payload.user_name}님이 퇴장했습니다.`);
       }
       channel_id = _channel_id;
       socket.join(channel_id);
-      workspace.in(channel_id).emit('join', `${payload.user_name}님이 입장했습니다.`);
+      try {
+        const chats = await chatService.getAllByChannelId({ channel_id });
+        socket.emit('initChats', chats);
+      } catch (error) {
+        return;
+      }
+      // workspace.in(channel_id).emit('join', `${payload.user_name}님이 입장했습니다.`);
     });
     // 채널에 접속한 사람에게 메시지 전달
     socket.on('chat', async (_chat) => {
@@ -70,13 +75,26 @@ namespace.on('connection', async (socket) => {
         user_id: payload.user_id,
       });
     });
+    // 채팅 내역 요청
+    socket.on('chats', async (offset: number, limit: number) => {
+      console.log(offset);
+      if (!channel_id) return;
+      try {
+        const chats = await chatService.getAllByChannelId({
+          channel_id,
+          offset,
+          limit,
+        });
+        socket.emit('chats', chats);
+      } catch (error) {
+        return;
+      }
+    });
     // 연결 해제시 채널 나가기
     socket.on('disconnect', () => {
-      if (!channel_id) return;
-      socket.leave(channel_id);
+      if (!channel_id) return;      socket.leave(channel_id);
     });
   } catch (error: any) {
-    // console.log(error);
     return;
   }
 });

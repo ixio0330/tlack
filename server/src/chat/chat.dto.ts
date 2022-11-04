@@ -8,3 +8,9 @@ export interface CreateChatDto {
   channel_id: string;
   user_id: string;
 }
+
+export interface GetChatDto {
+  channel_id: string;
+  offset?: number;
+  limit?: number;
+}
