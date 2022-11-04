@@ -6,6 +6,7 @@ export interface ChannelEntity {
 }
 
 export interface CreateChannelDto {
+  user_id: string;
   name: string;
   workspace_id: string;
   description?: string;

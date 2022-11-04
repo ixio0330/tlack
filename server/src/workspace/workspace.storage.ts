@@ -50,12 +50,13 @@ class WorkspaceStorage {
     }
   }
 
-  async invite({ users, workspace_id }: InviteWorkspaceDto) {
+  async invite({ users, workspace_id }: InviteWorkspaceDto, init?: boolean) { // 초기 초대인지 init으로 판별
     try {
       let query = 'insert into invites_workspace (user_id, workspace_id, isjoin) values ';
       users.forEach((user, index) => {
         if (users.length - 1 === index) {
-          query += ` ('${user}', '${workspace_id}', false)`;
+          // 초대자는 배열 맨 마지막에 추가했으므로, 맨 마지막 사람은 이미 초대된 상태
+          query += ` ('${user}', '${workspace_id}', ${init ? true : false})`;
           return;
         }
         query += `('${user}', '${workspace_id}', false),`;

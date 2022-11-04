@@ -32,7 +32,10 @@ router.post('/signin', withAsync(async (req, res) => {
     status: 'online'
   });
   res.send({
-    token: jwt.getToken(req.body.id),
+    name: '로그인 성공',
+    type: 'success',
+    message: '로그인 했습니다.',
+    token: jwt.getToken(user.id, user.nickname),
   });
 }));
 
@@ -42,6 +45,18 @@ router.get('/user', tokenMiddleware, withAsync(async (req, res) => {
     id: user.id,
     nickname: user.nickname,
     status: user.status,
+  });
+}));
+
+router.post('/singout', tokenMiddleware, withAsync(async (req, res) => {
+  await userService.update({
+    id: req.body.user_id,
+    status: 'offline'
+  });
+  res.send({
+    name: '로그아웃 성공',
+    type: 'success',
+    message: '로그아웃 했습니다.',
   });
 }));
 

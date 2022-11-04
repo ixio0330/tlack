@@ -5,7 +5,7 @@ import BadRequest from "../error/badRequest";
 import { generateShortUuid } from 'custom-uuid';
 
 class ChannelService {
-  async create({ name, workspace_id, description, users }: CreateChannelDto) {
+  async create({ name, user_id, workspace_id, description, users = [] }: CreateChannelDto) {
     // * 채널 개수 체크
     const count = await channelStorage.getChannelListLength(workspace_id);
     const workspace = await workspaceService.getById(workspace_id);
@@ -23,15 +23,14 @@ class ChannelService {
       description
     });
 
+    // 초대자도 초대인원으로 추가
+    users.push(user_id);
+
     // * 인원 초대
-    if (users) {
-      if (0 < users.length) {
-        await channelStorage.invite({
-          channel_id,
-          users,
-        });
-      }
-    }
+    await channelStorage.invite({
+      channel_id,
+      users,
+    });
 
     return channel_id;
   }

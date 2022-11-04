@@ -27,7 +27,7 @@ const server = createServer(app);
 const io = new Server(server, {
   path: '/socket.io',
   cors: {
-    origin: ['http://localhost:3000']
+    origin: ['http://localhost:3000', 'http://127.0.0.1:3000']
   }
 });
 
@@ -49,10 +49,14 @@ namespace.on('connection', async (socket) => {
     let channel_id = '';
     // 채널 접속
     socket.on('join', (_channel_id) => {
+      // 기존에 접속했던 채널이 있다면 나가기
+      if (channel_id) {
+        socket.leave(channel_id);
+        workspace.in(channel_id).emit('join', `${payload.user_name}님이 퇴장했습니다.`);
+      }
       channel_id = _channel_id;
       socket.join(channel_id);
-      workspace.in(channel_id).emit('join', `${payload.user_id}가 ${channel_id}에 입장했습니다.`);
-      console.log(`${payload.user_id}가 ${channel_id}에 입장했습니다.`);
+      workspace.in(channel_id).emit('join', `${payload.user_name}님이 입장했습니다.`);
     });
     // 채널에 접속한 사람에게 메시지 전달
     socket.on('chat', async (_chat) => {
@@ -60,22 +64,19 @@ namespace.on('connection', async (socket) => {
       // 메시지를 보낸 사람을 제외한 사람들에게 메시지 전달
       socket.broadcast.to(channel_id).emit('chat', _chat);
       // 채팅 데이터 DB에 저장
-      try {
-        await chatService.create({
-          channel_id,
-          content: _chat,
-          user_id: payload.user_id,
-        });
-      } catch (error) {
-        return;
-      }
+      await chatService.create({
+        channel_id,
+        content: _chat,
+        user_id: payload.user_id,
+      });
     });
     // 연결 해제시 채널 나가기
     socket.on('disconnect', () => {
       if (!channel_id) return;
       socket.leave(channel_id);
     });
-  } catch (error) {
+  } catch (error: any) {
+    // console.log(error);
     return;
   }
 });

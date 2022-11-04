@@ -16,7 +16,7 @@ class WorkspaceService {
     return await workspaceStorage.getById(workspace_id);
   }
 
-  async create({ name, user_id, users, description }: CreateWorkspaceDto) {
+  async create({ name, user_id, users = [], description }: CreateWorkspaceDto) {
     // owner의 workspace 개수를 체크한다.
     const workspaceListLength = await workspaceStorage.getWorkspaceListLength(user_id);
     if (this.max_workspace <= workspaceListLength) {
@@ -35,19 +35,18 @@ class WorkspaceService {
       max_participants: this.max_participants,
     });
 
-    // users 필드 length > 0 이라면 사용자를 초대한다.
-    if (users) {
-      if (0 < users.length) {
-        if (this.max_participants < users.length) {
-          throw new BadRequest(`최대 ${this.max_participants}명까지 초대할 수 있습니다.`);
-        }
-  
-        await workspaceStorage.invite({
-          users,
-          workspace_id
-        });
-      }
+    // 초대자도 초대인원으로 추가
+    users.push(user_id);
+
+    // 초대인원 수 체크
+    if (this.max_participants < users.length) {
+      throw new BadRequest(`최대 ${this.max_participants}명까지 초대할 수 있습니다.`);
     }
+
+    await workspaceStorage.invite({
+      users,
+      workspace_id
+    }, true);
 
     return workspace_id;
   }
