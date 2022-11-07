@@ -65,7 +65,6 @@ namespace.on('connection', async (socket) => {
       // 기존에 접속했던 채널이 있다면 나가기
       if (channel_id) {
         socket.leave(channel_id);
-        // workspace.in(channel_id).emit('join', `${payload.user_name}님이 퇴장했습니다.`);
       }
       channel_id = _channel_id;
       socket.join(channel_id);
@@ -75,7 +74,6 @@ namespace.on('connection', async (socket) => {
       } catch (error) {
         return;
       }
-      // workspace.in(channel_id).emit('join', `${payload.user_name}님이 입장했습니다.`);
     });
     // 채널에 접속한 사람에게 메시지 전달
     socket.on('chat', async (_chat) => {
@@ -106,7 +104,8 @@ namespace.on('connection', async (socket) => {
     });
     // 연결 해제시 채널 나가기
     socket.on('disconnect', () => {
-      if (!channel_id) return;      socket.leave(channel_id);
+      if (!channel_id) return;
+      socket.leave(channel_id);
     });
   } catch (error: any) {
     return;

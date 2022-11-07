@@ -13,7 +13,17 @@ router.post('/signup', withAsync(async (req, res) => {
   res.send({
     name: '회원가입 성공',
     type: 'success',
-    message: '회원가입을 완료했습니다.'
+    message: '회원가입을 완료했습니다.',
+    token: {
+      access: jwt.getToken({
+        user_id: req.body.id,
+        nickname: req.body.nickname,
+      }),
+      refresh: jwt.getToken({
+        user_id: req.body.id,
+        nickname: req.body.nickname,
+      }, 'refresh')
+    },
   });
 }));
 
@@ -35,7 +45,16 @@ router.post('/signin', withAsync(async (req, res) => {
     name: '로그인 성공',
     type: 'success',
     message: '로그인 했습니다.',
-    token: jwt.getToken(user.id, user.nickname),
+    token: {
+      access: jwt.getToken({
+        user_id: user.id,
+        user_nickname: user.nickname,
+      }),
+      refresh: jwt.getToken({
+        user_id: user.id,
+        user_nickname: user.nickname,
+      }, 'refresh')
+    },
   });
 }));
 
@@ -60,8 +79,19 @@ router.post('/singout', tokenMiddleware, withAsync(async (req, res) => {
   });
 }));
 
-router.post('/token', tokenMiddleware, withAsync(async (req, res) => {
-  res.status(200).send('유효한 토큰입니다.');
+router.post('/access', tokenMiddleware, withAsync(async (req, res) => {
+  res.status(200).end();
+}));
+
+router.post('/refresh', tokenMiddleware, withAsync(async (req, res) => {
+  res.status(200).send({
+    token: {
+      access: jwt.getToken({
+        user_id: req.body.user_id,
+        user_nickname: req.body.user_nickname,
+      }),
+    }
+  })
 }));
 
 export default router;

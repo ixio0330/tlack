@@ -1,4 +1,4 @@
-# POST http://127.0.0.1:9000/auth/signup
+# POST https://127.0.0.1:9000/auth/signup
 # Content-Type: application/json
 
 # {
@@ -7,33 +7,45 @@
 #   "password": "qwer"
 # }
 
-# POST http://127.0.0.1:9000/auth/signin
+# POST https://127.0.0.1:9000/auth/signin
 # Content-Type: application/json
 
 # {
-#   "id": "test2@example.com",
+#   "id": "test1@example.com",
 #   "password": "qwer"
 # }
 
-# GET http://127.0.0.1:9000/auth/user
+# GET https://127.0.0.1:9000/auth/user
 # Content-Type: application/json
 # Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidGVzdDFAZXhhbXBsZS5jb20iLCJ1c2VyX25hbWUiOiLthYzsiqTthLAxIiwiaWF0IjoxNjY3NTIxMzA0LCJleHAiOjE2Njc2MDc3MDR9.4L8i7A1xnt7RaoEqj4aPJV6yQjUBoeDDaeQYR9MZRhU
 
-# POST http://127.0.0.1:9000/workspace
+# POST https://127.0.0.1:9000/workspace
 # Content-Type: application/json
-# Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidGVzdDFAZXhhbXBsZS5jb20iLCJ1c2VyX25hbWUiOiLthYzsiqTthLAxIiwiaWF0IjoxNjY3NTIxMzA0LCJleHAiOjE2Njc2MDc3MDR9.4L8i7A1xnt7RaoEqj4aPJV6yQjUBoeDDaeQYR9MZRhU
+# Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidGVzdDFAZXhhbXBsZS5jb20iLCJ1c2VyX25pY2tuYW1lIjoi7YWM7Iqk7Yq4MSIsImlhdCI6MTY2NzgwMTIyMCwiZXhwIjoxNjY3ODg3NjIwfQ.LWvN0SK62_Z0GHzcbsY8OZa9gS6SknvJE_wZJZKiAaM
 
 # {
 #   "name": "워크스페이스1",
-#   "users": ["test2@example.com", "test3@example.com"]
+#   "users": ["test2@example.com"]
 # }
 
-# POST http://127.0.0.1:9000/channel
+# GET https://127.0.0.1:9000/workspace
 # Content-Type: application/json
-# Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidGVzdDFAZXhhbXBsZS5jb20iLCJ1c2VyX25hbWUiOiLthYzsiqTthLAxIiwiaWF0IjoxNjY3NTIxMzA0LCJleHAiOjE2Njc2MDc3MDR9.4L8i7A1xnt7RaoEqj4aPJV6yQjUBoeDDaeQYR9MZRhU
+# Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidGVzdDFAZXhhbXBsZS5jb20iLCJ1c2VyX25pY2tuYW1lIjoi7YWM7Iqk7Yq4MSIsImlhdCI6MTY2NzgwMTIyMCwiZXhwIjoxNjY3ODg3NjIwfQ.LWvN0SK62_Z0GHzcbsY8OZa9gS6SknvJE_wZJZKiAaM
+
+# POST https://127.0.0.1:9000/channel
+# Content-Type: application/json
+# Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidGVzdDFAZXhhbXBsZS5jb20iLCJ1c2VyX25pY2tuYW1lIjoi7YWM7Iqk7Yq4MSIsImlhdCI6MTY2NzgwMTIyMCwiZXhwIjoxNjY3ODg3NjIwfQ.LWvN0SK62_Z0GHzcbsY8OZa9gS6SknvJE_wZJZKiAaM
 
 # {
 #   "name": "테스트 채널1",
-#   "workspace_id": "pPnOtC7EXQPSTMHq",
+#   "workspace_id": "UXj0ohqvLIcXCEP7",
 #   "users": ["test2@example.com"]
 # }
+
+# POST https://127.0.0.1:9000/auth/access
+# Content-Type: application/json
+# Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidGVzdDFAZXhhbXBsZS5jb20iLCJ1c2VyX25pY2tuYW1lIjoi7YWM7Iqk7Yq4MSIsImlhdCI6MTY2NzgwMTIyMCwiZXhwIjoxNjY3ODg3NjIwfQ.LWvN0SK62_Z0GHzcbsY8OZa9gS6SknvJE_wZJZKiAaM
+
+# POST https://127.0.0.1:9000/auth/refresh
+# Content-Type: application/json
+# Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidGVzdDFAZXhhbXBsZS5jb20iLCJ1c2VyX25pY2tuYW1lIjoi7YWM7Iqk7Yq4MSIsImlhdCI6MTY2NzgwMTE5NywiZXhwIjoxNjY4NDA1OTk3fQ.F9kE7LSAyDy3Q8Q4JYy8wNKaYlqSfnXtJAuZmHu47A8

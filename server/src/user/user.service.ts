@@ -22,7 +22,7 @@ class UserService {
       ...user,
       password: hashPassword,
       salt,
-      status: 'offline',
+      status: 'online',
     });
   }
 

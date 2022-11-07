@@ -1,9 +1,15 @@
 import jsonwebtoken, { JwtPayload } from 'jsonwebtoken';
 
+export type Payload = {
+  [key: string]: string;
+};
+
+type TokenType = 'access' | 'refresh';
+
 const jwt = {
-  getToken(user_id: string, user_name?: string): string {
-  return jsonwebtoken.sign({ user_id, user_name }, 'SECRET_KEY', {
-      expiresIn: '1d'
+  getToken(info: Payload, type: TokenType = 'access'): string {
+  return jsonwebtoken.sign({ ...info }, 'SECRET_KEY', {
+      expiresIn: type === 'access' ? '1d' : '7d'
     });
   },
   getPayload(token: string): JwtPayload {

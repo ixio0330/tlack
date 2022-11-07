@@ -11,6 +11,7 @@ const tokenMiddleware = (req: Request, res: Response, next: NextFunction) => {
   try { 
     const payload = jwt.getPayload(req.headers.authorization);
     req.body.user_id = payload.user_id;
+    req.body.user_nickname = payload.user_nickname;
     next();
   } catch (error) {
     throw new ExpiredToken();
