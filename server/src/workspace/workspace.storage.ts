@@ -66,6 +66,22 @@ class WorkspaceStorage {
       throw new Error('워크스페이스에 사용자 초대 중 오류가 발생했습니다.');
     }
   }
+
+  async getAllByUserId(user_id: string) {
+    try {
+      const result = await database.query(`
+        select w.id, w.name
+        from workspaces w 
+          inner join invites_workspace iw 
+          on w.id=iw.workspace_id 
+        where iw.user_id='${user_id}'
+      `);
+      console.log(result?.rows)
+      return result?.rows;
+    } catch (error) {
+
+    }
+  }
 }
 
 const workspaceStorage = new WorkspaceStorage();

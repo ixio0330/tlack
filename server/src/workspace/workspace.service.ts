@@ -52,7 +52,11 @@ class WorkspaceService {
   }
 
   async invite(invite: InviteWorkspaceDto) {
-    await workspaceStorage.invite(invite);
+    return await workspaceStorage.invite(invite);
+  }
+
+  async getAllByUserId(user_id: string) {
+    return await workspaceStorage.getAllByUserId(user_id);
   }
 }
 

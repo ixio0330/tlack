@@ -1,7 +1,9 @@
 import express from "express";
 import { Server } from 'socket.io';
-import { createServer } from 'http';
+import { createServer } from 'https';
 import jwt from "./utils/jwt";
+import cors from 'cors';
+import fs from 'fs';
 
 // service
 import workspaceService from "./workspace/workspace.service";
@@ -19,15 +21,27 @@ import authRouter from './auth/auth.controller';
 import workspaceRouter from './workspace/workspace.controller';
 import channelRouter from './channel/channel.controller';
 
-
 const app = express();
-app.use(express.json());
+const options = {
+  key: fs.readFileSync(`${__dirname}/../config/localhost-key.pem`),
+  cert: fs.readFileSync(`${__dirname}/../config/localhost.pem`)
+};
+const server = createServer(options, app);
+const PORT = 9000;
+const HOST = 'localhost';
+server.listen(PORT, HOST, () => {
+  console.log(`Server run : https://${HOST}:${PORT}`);
+});
 
-const server = createServer(app);
+app.use(express.json());
+app.use(cors({
+  origin: ['https://localhost:3000', 'https://127.0.0.1:3000'],
+}))
+
 const io = new Server(server, {
   path: '/socket.io',
   cors: {
-    origin: ['http://localhost:3000', 'http://127.0.0.1:3000']
+    origin: ['https://localhost:3000', 'https://127.0.0.1:3000']
   }
 });
 
@@ -99,17 +113,14 @@ namespace.on('connection', async (socket) => {
   }
 });
 
-const PORT = 9000;
-const HOST = '127.0.0.1';
-server.listen(PORT, HOST, () => {
-  console.log(`Server run : http://${HOST}:${PORT}`);
-});
-
 app.use((req, res, next) => {
   console.log(`[${req.method}] ${req.path} | ${new Date().toLocaleString()}`);
   next();
 });
 
+app.get('/', (req, res) => {
+  res.send('Hello Tlack!');
+});
 app.use('/auth', authRouter);
 app.use('/workspace', workspaceRouter);
 app.use('/channel', channelRouter);

@@ -16,4 +16,15 @@ router.post('/', tokenMiddleware, withAsync(async (req, res) => {
   });
 }));
 
+router.get('/', tokenMiddleware, withAsync(async (req, res) => {
+  const workspace_list = await workspaceService.getAllByUserId(req.body.user_id);
+
+  res.send({
+    name: '워크스페이스 조회 성공',
+    type: 'success',
+    message: '워크스페이스를 조회했습니다.',
+    workspace_list
+  });
+}));
+
 export default router;

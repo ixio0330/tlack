@@ -60,4 +60,8 @@ router.post('/singout', tokenMiddleware, withAsync(async (req, res) => {
   });
 }));
 
+router.post('/token', tokenMiddleware, withAsync(async (req, res) => {
+  res.status(200).send('유효한 토큰입니다.');
+}));
+
 export default router;
