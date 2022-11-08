@@ -1,6 +1,7 @@
 import http from ".";
 import { Response } from './response.dto';
 import { history } from "../App";
+import { getError } from "../utils/getError";
 
 export type SinginDto = {
   id: string;
@@ -26,13 +27,14 @@ class AuthService {
     try {
       const response = await this.apiSingin(info);
       if (response.type === 'success') {
-        localStorage.setItem('TOKEN', response.token);
+        localStorage.setItem('ACCESS_TOKEN', response.token.access);
+        localStorage.setItem('REFRESH_TOKEN', response.token.refresh);
         history.replace('/');
         return;
       }
     } catch (error) {
       // TODO [Store] error update
-      console.log(error);
+      console.log(getError(error).message);
     }
   }
 
@@ -41,12 +43,13 @@ class AuthService {
       await this.apiSingup(info);
       history.replace('/signin');
     } catch (error) {
-      console.log(error);
+      // TODO [Store] error update
+      console.log(getError(error).message);
     }
   }
 
   async token() {
-    return await http.post('/auth/token');
+    return await http.post('/auth/access');
   }
 }
 

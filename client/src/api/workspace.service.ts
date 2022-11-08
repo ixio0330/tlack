@@ -6,6 +6,12 @@ export type WorkspaceList = {
   name: string;
 }[];
 
+export type CreateWorkspaceDto = {
+  name: string;
+  description?: string;
+  users?: string[]
+}
+
 interface GetWorkspace extends Response {
   workspace_list: WorkspaceList
 }
@@ -13,6 +19,10 @@ interface GetWorkspace extends Response {
 class WorkspaceService {
   async getAllWorkspace(): Promise<GetWorkspace> {
     return await http.get('/workspace');
+  }
+
+  async create(workspace: CreateWorkspaceDto) {
+    return await http.post('/workspace', { ...workspace });
   }
 }
 

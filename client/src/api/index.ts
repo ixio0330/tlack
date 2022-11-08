@@ -5,9 +5,9 @@ const http = axios.create({
 });
 
 http.interceptors.request.use((config: AxiosRequestConfig) => {
-  if (localStorage.getItem('TOKEN')) {
+  if (localStorage.getItem('ACCESS_TOKEN')) {
     config["headers"] = {
-      Authorization: `${localStorage.getItem('TOKEN')}`,
+      Authorization: `${localStorage.getItem('ACCESS_TOKEN')}`,
     };
   }
   // TODO [Store] loading start update
@@ -21,7 +21,7 @@ http.interceptors.response.use(
   }, 
   (error: AxiosError) => {
     // TODO [Store] loading stop update
-    return Promise.reject(error);
+    return Promise.reject(error?.response?.data);
   }
 );
 
