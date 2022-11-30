@@ -7,6 +7,5 @@
     "strict": true,	//strict 옵션 활성화
     "moduleResolution": "node",	//모듈 해석 방법 설정: 'node' (Node.js)
     "esModuleInterop": true,
-     "jsx": "react"
   }
 }

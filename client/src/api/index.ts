@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 
 const http = axios.create({
-  baseURL: 'https://localhost:9000'
+  baseURL: 'http://localhost:9000'
 });
 
 http.interceptors.request.use((config: AxiosRequestConfig) => {

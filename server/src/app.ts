@@ -1,6 +1,6 @@
 import express from "express";
 import { Server } from 'socket.io';
-import { createServer } from 'https';
+import { createServer } from 'http';
 import jwt from "./utils/jwt";
 import cors from 'cors';
 import fs from 'fs';
@@ -22,26 +22,26 @@ import workspaceRouter from './workspace/workspace.controller';
 import channelRouter from './channel/channel.controller';
 
 const app = express();
-const options = {
-  key: fs.readFileSync(`${__dirname}/../config/localhost-key.pem`),
-  cert: fs.readFileSync(`${__dirname}/../config/localhost.pem`)
-};
-const server = createServer(options, app);
+// const options = {
+//   key: fs.readFileSync(`${__dirname}/../config/ca.key`),
+//   cert: fs.readFileSync(`${__dirname}/../config/ca.crt`)
+// };
+const server = createServer(/*options, */app);
 const PORT = 9000;
 const HOST = 'localhost';
 server.listen(PORT, HOST, () => {
-  console.log(`Server run : https://${HOST}:${PORT}`);
+  console.log(`Server run : http://${HOST}:${PORT}`);
 });
 
 app.use(express.json());
 app.use(cors({
-  origin: ['https://localhost:3000', 'https://127.0.0.1:3000'],
+  origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
 }))
 
 const io = new Server(server, {
   path: '/socket.io',
   cors: {
-    origin: ['https://localhost:3000', 'https://127.0.0.1:3000']
+    origin: ['http://localhost:3000', 'http://127.0.0.1:3000']
   }
 });
 

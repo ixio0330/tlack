@@ -23,7 +23,7 @@ class Database {
       await this.database.connect();
     } catch (error) {
       console.log(error);
-      throw new Error('데이터베이스 연결 중 오류가 발생했습니다.');
+      console.log('데이터베이스 연결 중 오류가 발생했습니다.');
     }
   }
 
