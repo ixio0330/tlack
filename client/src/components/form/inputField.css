@@ -17,3 +17,7 @@
 .input_field input:focus {
   outline: 2px solid rgba(0, 140, 255, 0.452);
 }
+
+.input_field .input_error {
+  color: rgb(231, 47, 47);
+}

@@ -9,7 +9,7 @@ interface InputFieldProps {
   name?: string;
   type?: HTMLInputTypeAttribute;
   onChange?: ChangeEventHandler;
-  rules?: { (v: string): string; }[];
+  rules?: Function[];
   placeholder?: string;
 }
 
@@ -43,7 +43,7 @@ export default function InputField(
     <div className='input_field'>
       <label htmlFor={id}>{ label }</label>
       <input type={type} id={id} name={name ?? id} value={value} onChange={onChange} placeholder={placeholder} />
-      <p>{ valid }</p>
+      <p className='input_error'>{ valid }</p>
     </div>
   );
 }
