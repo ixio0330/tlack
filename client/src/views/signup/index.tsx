@@ -39,8 +39,8 @@ export default function SignupView() {
       <InputField label='이메일' value={id} placeholder='email@example.com' onChange={onChangeId} />
       <InputField label='이름' value={nickname} onChange={onChangeNickname} />
       <InputField label='비밀번호' value={pw} onChange={onChnagePw} type='password' />
-      <button onClick={onClickSignup}>회원가입</button>
-      <div className='go_signin'>
+      <Button value='회원가입' onClick={onClickSignup} />
+      <div className='go_sign'>
         <p>이미 Tlack을 사용하고 있나요?</p>
         <Link to='/signin'>기존 워크스페이스에 로그인</Link>
       </div>

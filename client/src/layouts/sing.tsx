@@ -12,7 +12,9 @@ export default function SingLayout(props: { children: ReactNode, title: string }
         <FcTreeStructure /> <span>Tlack</span>
       </h2>
       <h1>{ title }</h1>
-      { children }
+      <div className="sign_view">
+        { children }
+      </div>
     </div>
   );
 }

@@ -1,10 +1,33 @@
 @charset "UTF-8";
 
 .sign_layout {
-  width: 400px;
+  width: 450px;
   margin: 50px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.sign_view {
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+}
+
+h1 {
+  margin: 50px 0;
+}
+
+button {
+  margin: 30px 0;
+}
+
+.go_sign {
+  text-align: center;
+}
+
+.go_sign p {
+  margin-bottom: 5px;
 }
