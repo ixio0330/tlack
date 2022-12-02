@@ -26,12 +26,10 @@ class AuthService {
   async signin(info: SinginDto) {
     try {
       const response = await this.apiSingin(info);
-      if (response.type === 'success') {
-        localStorage.setItem('ACCESS_TOKEN', response.token.access);
-        localStorage.setItem('REFRESH_TOKEN', response.token.refresh);
-        history.replace('/');
-        return;
-      }
+      if (response.type !== 'success') return;
+      localStorage.setItem('ACCESS_TOKEN', response.token.access);
+      localStorage.setItem('REFRESH_TOKEN', response.token.refresh);
+      history.replace('/');
     } catch (error) {
       // TODO [Store] error update
       console.log(getError(error).message);
