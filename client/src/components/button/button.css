@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+button {
+  width: 100%;
+  padding: 13px 0;
+  background-color: rgb(89, 36, 187);
+  color: #fff;
+  border: none;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: .2s;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(58, 23, 124);
+}
+
+button:disabled {
+  cursor: default;
+  background-color: rgba(89, 36, 187, 0.712);
+}

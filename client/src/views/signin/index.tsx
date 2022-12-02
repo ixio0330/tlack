@@ -1,8 +1,12 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+import './signin.css';
+
 // Component
+import SingLayout from '../../layouts/sing';
 import InputField from "../../components/form/inputField"
+import Button from '../../components/button/button';
 // hook
 import useInput from "../../hooks/useInput"
 // api
@@ -24,11 +28,14 @@ export default function SigninView() {
     }
   }, []);
   return (
-    <div className="signin_view">
-      <InputField label='아이디' value={id} onChange={onChangeId} />
+    <SingLayout title='이메일로 로그인해 보세요'>
+      <InputField label='이메일' placeholder='email@example.com' value={id} onChange={onChangeId} />
       <InputField label='비밀번호' value={pw} onChange={onChnagePw} type='password' />
-      <Link to='/signup'>회원가입</Link>
-      <button onClick={onClickSignin}>로그인</button>
-    </div>
+      <Button value='이메일로 로그인' onClick={onClickSignin} />
+      <div className='go_signup'>
+        <p>아직 계정이 없으신가요?</p>
+        <Link to='/signup'>계정 생성하기</Link>
+      </div>
+    </SingLayout>
   )
 }

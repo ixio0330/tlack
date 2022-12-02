@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+h1 {
+  margin: 50px 0;
+}
+
+button {
+  margin: 30px 0;
+}
+
+.go_signup {
+  text-align: center;
+}
+
+.go_signup p {
+  margin-bottom: 5px;
+}

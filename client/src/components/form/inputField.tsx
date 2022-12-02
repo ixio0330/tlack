@@ -1,5 +1,6 @@
 import { v1 } from 'uuid';
 import { HTMLInputTypeAttribute, ChangeEventHandler, useState, useEffect } from 'react';
+import './inputField.css';
 
 interface InputFieldProps {
   id?: string;
@@ -9,6 +10,7 @@ interface InputFieldProps {
   type?: HTMLInputTypeAttribute;
   onChange?: ChangeEventHandler;
   rules?: { (v: string): string; }[];
+  placeholder?: string;
 }
 
 export default function InputField(
@@ -19,7 +21,8 @@ export default function InputField(
     value,
     name,
     onChange,
-    rules
+    rules,
+    placeholder
   }: InputFieldProps) {
   const [valid, setValid] = useState('');
 
@@ -39,7 +42,7 @@ export default function InputField(
   return (
     <div className='input_field'>
       <label htmlFor={id}>{ label }</label>
-      <input type={type} id={id} name={name ?? id} value={value} onChange={onChange} />
+      <input type={type} id={id} name={name ?? id} value={value} onChange={onChange} placeholder={placeholder} />
       <p>{ valid }</p>
     </div>
   );

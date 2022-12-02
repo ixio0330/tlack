@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+.input_field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.input_field input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.input_field input:focus {
+  outline: 2px solid rgba(0, 140, 255, 0.452);
+}
