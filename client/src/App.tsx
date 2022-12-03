@@ -18,6 +18,7 @@ export const history = createBrowserHistory();
 const SigninView = lazy(() => import('./views/signin'));
 const SignupView = lazy(() => import('./views/signup'));
 const MainView = lazy(() => import('./views/main'));
+const WorkspaceView = lazy(() => import('./views/workspace'));
 
 function App() {
   const { message, show, timeout, type } = useSelector((state: RootState) => state.app.snackbar);
@@ -35,6 +36,7 @@ function App() {
           />
           <Routes>
             <Route path='/' element={<MainView />} />
+            <Route path='/:id' element={<WorkspaceView />} />
             <Route path='/signin' element={<SigninView />} />
             <Route path='/signup' element={<SignupView />} />
           </Routes>

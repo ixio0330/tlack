@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
-import Modal from '.';
 import useInput from '../../hooks/useInput';
+
+import Modal from '.';
 import InputField from '../form/inputField';
-import { CreateWorkspaceDto } from '../../api/workspace.service';
 import Button from '../button/button';
+import TagInputField from '../form/tagInputField';
+
+import { CreateWorkspaceDto } from '../../api/workspace.service';
 
 interface NewWorkspaceModalProps {
   show: boolean;
-  onClickOk: (workspace: CreateWorkspaceDto) => void;
+  onClickOk: (workspace: CreateWorkspaceDto) => Promise<boolean>;
   onClickCancle: () => void;
   afterOk: () => void;
 }
@@ -33,21 +36,26 @@ export default function NewWorkspaceModal({ show, onClickOk, onClickCancle, afte
     }
   }, [show]);
 
-  function onCreateWorkspace() {
+  const onCreateWorkspace = async () => {
     if (!name) {
       return;
     }
     
-    onClickOk({ name, description, users });
+    if (await onClickOk({ name, description, users })) {
+      afterOk();
+    };
     onClickCancle();
-    afterOk();
-  }
+  };
 
-  function onClickAddInvite() {
+  const onClickDeleteUser = (index: number) => {
+    setUsers(users.filter((_, i) => i !== index));
+  };
+
+  const onKeyupEnter = () => {
     if (!email) return;
     setUsers(users.concat(email));
     setValueEmail('');
-  }
+  };
 
   return (
     <Modal
@@ -64,18 +72,19 @@ export default function NewWorkspaceModal({ show, onClickOk, onClickCancle, afte
           <div>
             <h4>워크스페이스에 초대하기</h4>
           </div>
-          <InputField type='email' value={email} onChange={onChangeEmail} />
-          <ul>
-            {
-              users.map((user, index) => <li key={index}>{user}</li>)
-            }
-          </ul>
+          <TagInputField
+            value={email} 
+            list={users}
+            onClickDelete={onClickDeleteUser}
+            onEnter={onKeyupEnter}
+            onChange={onChangeEmail} 
+          />
         </>
       )}
       actions={(
         <div className='modal_actions'>
           <Button type='none' value='취소' onClick={onClickCancle} />
-          <Button value='확인' onClick={onCreateWorkspace} />
+          <Button disabled={!name || 10 < users.length} value='확인' onClick={onCreateWorkspace} />
         </div>
       )}
     />
