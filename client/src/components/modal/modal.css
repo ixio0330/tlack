@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+.modal_wrap {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+}
+.modal {
+  position: absolute;
+  width: 400px;
+  left: calc(50% - 230px);
+  top: 20%;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+}
+
+.modal_actions {
+  display: flex;
+  width: 100%;
+  margin-top: 10px;
+  justify-content: end;
+}
+
+.modal_actions #button {
+  width: 100px;
+  margin-left: 20px;
+}

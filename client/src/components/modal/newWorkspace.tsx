@@ -3,6 +3,7 @@ import Modal from '.';
 import useInput from '../../hooks/useInput';
 import InputField from '../form/inputField';
 import { CreateWorkspaceDto } from '../../api/workspace.service';
+import Button from '../button/button';
 
 interface NewWorkspaceModalProps {
   show: boolean;
@@ -62,9 +63,8 @@ export default function NewWorkspaceModal({ show, onClickOk, onClickCancle, afte
           <InputField label='설명' value={description} onChange={onChangeDescription} />
           <div>
             <h4>워크스페이스에 초대하기</h4>
-            <button onClick={onClickAddInvite}>추가</button>
           </div>
-          <InputField label='이메일' type='email' value={email} onChange={onChangeEmail} />
+          <InputField type='email' value={email} onChange={onChangeEmail} />
           <ul>
             {
               users.map((user, index) => <li key={index}>{user}</li>)
@@ -73,10 +73,10 @@ export default function NewWorkspaceModal({ show, onClickOk, onClickCancle, afte
         </>
       )}
       actions={(
-        <>
-          <button onClick={onClickCancle}>취소</button>
-          <button onClick={onCreateWorkspace}>확인</button>
-        </>
+        <div className='modal_actions'>
+          <Button type='none' value='취소' onClick={onClickCancle} />
+          <Button value='확인' onClick={onCreateWorkspace} />
+        </div>
       )}
     />
   )

@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { SnackbarType } from '../components/snackbar/snackbar';
+import { StatusType } from '../common/status';
 
 const snackbarInitalState = {
-  type: 'none' as SnackbarType,
+  type: 'none' as StatusType,
   message: '',
   show: false,
   timeout: 3000,

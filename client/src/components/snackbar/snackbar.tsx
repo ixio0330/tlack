@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import './snackbar.css';
-
-export type SnackbarType = 'info' | 'success' | 'warn' | 'error' | 'none';
+import { StatusType } from '../../common/status';
 
 interface SncakbarProps {
-  type?: SnackbarType;
+  type?: StatusType;
   message?: string;
   show: boolean;
   timeout?: number;

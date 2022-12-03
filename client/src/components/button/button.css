@@ -3,7 +3,6 @@
 #button {
   width: 100%;
   padding: 13px 0;
-  background-color: rgb(89, 36, 187);
   color: #fff;
   border: none;
   font-weight: bold;
@@ -12,11 +11,78 @@
   cursor: pointer;
 }
 
-#button:hover {
+#button:disabled {
+  cursor: default;
+}
+
+#button.default {
+  background-color: rgb(89, 36, 187);
+}
+
+#button.default:hover {
   background-color: rgb(58, 23, 124);
 }
 
-#button:disabled {
-  cursor: default;
+#button.default:disabled {
   background-color: rgba(89, 36, 187, 0.712);
+}
+
+#button.info {
+  background-color: #1E88E5;
+}
+
+#button.info:hover {
+  background-color: #145996;
+}
+
+#button.info:disabled {
+  background-color: #1e88e5b0;
+}
+
+#button.success {
+  background-color: #43A047;
+}
+
+#button.success:hover {
+  background-color: #14851a;
+}
+
+#button.success:disabled {
+  background-color: #43a0489d;
+}
+
+#button.warn {
+  background-color: #F9A825;
+}
+
+#button.warn:hover {
+  background-color: #ff8d0a;
+}
+
+#button.warn:disabled {
+  background-color: #f9a825b2;
+}
+
+#button.error {
+  background-color: #E53935;
+}
+
+#button.error:hover {
+  background-color: #a8221f;
+}
+
+#button.error:disabled {
+  background-color: #e53835bd;
+}
+
+#button.none {
+  background-color: rgb(199, 199, 199);
+}
+
+#button.none:hover {
+  background-color: rgb(128, 128, 128);
+}
+
+#button.none:disabled {
+  background-color: rgb(128, 128, 128);
 }
