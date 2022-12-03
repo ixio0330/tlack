@@ -12,7 +12,7 @@ import './sign.css';
 export default function SingLayout(props: { children: ReactNode, title: string }) {
   const { children, title } = props;
   return (
-    <div className='sign_layout'>
+    <section className='sign_layout'>
       <h2>
         <FcTreeStructure /> <span>Tlack</span>
       </h2>
@@ -20,6 +20,6 @@ export default function SingLayout(props: { children: ReactNode, title: string }
       <div className="sign_view">
         { children }
       </div>
-    </div>
+    </section>
   );
 }
