@@ -22,7 +22,7 @@ class ChatStorage {
         from chats c
           inner join users u
           on c.user_id=u.id
-        where chat_id='${chat_id}'
+        where c.id='${chat_id}'
       `);
       return result?.rows[0];
     } catch (error) {
