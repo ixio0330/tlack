@@ -15,14 +15,14 @@ export default function Nav() {
   const onClickChannel = (id: string, name: string) => {
     setSelectChannel(id);
     dispatch(enterChannel({ id, name}));
-    if (id !== channel.id) {
-      onEnterChannel(id);
-    }
+    onEnterChannel(id);
   };
 
   const onEnterChannel = (channel_id: string) => {
-    if (socketService.socket) {
-      socketService.socket.emit('join', channel_id);
+    if (channel_id !== channel.id) {
+      if (socketService.socket) {
+        socketService.socket.emit('join', channel_id);
+      }
     }
   };
 
