@@ -5,9 +5,13 @@ import workspaceService, { WorkspaceList } from '../../api/workspace.service';
 import NewWorkspaceModal from '../../components/modal/newWorkspace';
 import Button from '../../components/button/button';
 import { FcTreeStructure } from 'react-icons/fc';
+import { useDispatch } from "react-redux";
+import { enterWorkspace } from '../../store/socket';
+
 import './main.css';
 
 export default function MainView() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [workspaces, setWorkspaces] = useState([] as WorkspaceList);
   const [newWorkspace, setNewWrokspace] = useState(false);
@@ -33,6 +37,10 @@ export default function MainView() {
     }
   };
 
+  const onClickEnterWorkspace = ({id, name}: {id: string, name: string}) => {
+    dispatch(enterWorkspace({id, name}));
+  };
+
   useEffect(() => {
     checkToken();
     fetchWorkspaceList();
@@ -44,8 +52,12 @@ export default function MainView() {
         <p>워크스페이스에 접속해보세요!</p>
         <ul className='workspace_list'>
           {
-            workspaces.map((workspace, index) => (
-              <li className='workspace_item' key={index}>
+            workspaces.map((workspace) => (
+              <li 
+                className='workspace_item' 
+                key={workspace.id}
+                onClick={() => onClickEnterWorkspace(workspace)}
+              >
                 <Link to={`/${workspace.id}`}>
                   <h4>{workspace.name}</h4>
                 </Link>

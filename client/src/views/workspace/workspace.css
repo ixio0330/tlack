@@ -27,10 +27,11 @@
 .workspace_view nav { 
   padding: 10px 20px;
   height: calc(100vh - 50px);
-  width: 230px;
+  width: 280px;
+  box-sizing: border-box;
   background-color: rgb(51, 23, 104);
   color: #fff;
-  flex-shrink: 1;
+  flex-shrink: 0;
 }
 
 .workspace_view nav li {

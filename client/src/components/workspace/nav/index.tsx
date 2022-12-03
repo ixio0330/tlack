@@ -1,29 +1,35 @@
 import { Link } from "react-router-dom";
 import { useState } from 'react';
-
-const channels = ['channel1', 'channel2'];
+import { useDispatch } from "react-redux";
+import { enterChannel } from '../../../store/socket';
+import { RootState } from '../../../store';
+import { useSelector } from 'react-redux';
 
 export default function Nav() {
-  const [selectChannel, setSelectChannel] = useState(0);
+  const workspace = useSelector((state: RootState) => state.socket.workspace);
+  const channel = useSelector((state: RootState) => state.socket.channel);
+  const [selectChannel, setSelectChannel] = useState(channel.id);
+  const dispatch = useDispatch();
 
-  const onClickChannel = (index: number) => {
-    setSelectChannel(index);
+  const onClickChannel = (id: string, name: string) => {
+    setSelectChannel(id);
+    dispatch(enterChannel({ id, name}));
   };
 
   return (
     <nav>
-      <h2>Workspace Name</h2>
+      <h2>{workspace.name}</h2>
       <hr />
       <ul>
         {
-          channels.map((channel, index) => (
+          channel.list.map((channel) => (
             <li 
-              key={channel}
-              onClick={() => onClickChannel(index)} 
-              className={index === selectChannel ? 'select_channel' : ''}
+              key={channel.id}
+              onClick={() => onClickChannel(channel.id, channel.name)} 
+              className={channel.id === selectChannel ? 'select_channel' : ''}
             >
-              <Link to={`/:workspace_id/${channel}`}>
-                # {channel}
+              <Link to={`/${workspace.id}/${channel.id}`}>
+                # {channel.name}
               </Link>
             </li>
           ))

@@ -1,29 +1,28 @@
 import { useState, useEffect } from "react";
-import { useParams, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { io, Socket } from 'socket.io-client';
-
+import { ChannelDto } from '../../api/channel.service';
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { connectSokcet, disconnectSocket, setChannelList } from '../../store/socket';
+import { RootState } from "../../store";
 import './workspace.css';
 
 // Components 
 import Header from '../../components/workspace/header';
 import Nav from '../../components/workspace/nav';
 
-type Channel = {
-  id: string;
-  name: string;
-  description: string | null;
-}
-
 export default function WorkspaceView() {
-  const { workspace_id } = useParams();
+  const workspace = useSelector((state: RootState) => state.socket.workspace);
+  const dispatch = useDispatch();
   const [socket, setSocket] = useState(null as null | Socket);
-  const [channels, setChannels] = useState([] as Channel[]);
   const [chat, setChat] = useState('');
 
   useEffect(() => {
     try {
+      // dispatch(connectSokcet({ url: }))
       const socket = io(
-        `http://127.0.0.1:9000/${workspace_id}`, 
+        `http://127.0.0.1:9000/${workspace.id}`, 
         { 
           path: '/socket.io', 
           auth: 
@@ -38,27 +37,7 @@ export default function WorkspaceView() {
       });
 
       socket.on('channels', (channelList) => {
-        setChannels(channelList);
-      });
-
-      socket.on('join', (join) => {
-        console.log(join);
-      });
-
-      socket.on('disconnect', (info) => {
-        console.log(info);
-      });
-
-      socket.on('initChats', (chats) => {
-        console.log(chats);
-      });
-
-      socket.on('chat', (chat) => {
-        console.log(chat);
-      });
-
-      socket.on('chats', (chats) => {
-        console.log(chats);
+        dispatch(setChannelList({ list: channelList }));
       });
 
       setSocket(socket);
@@ -67,8 +46,7 @@ export default function WorkspaceView() {
     }
 
     return () => { 
-      socket?.disconnect();
-      setSocket(null);
+      dispatch(disconnectSocket());
     }
   }, []);
 
@@ -91,21 +69,6 @@ export default function WorkspaceView() {
       socket.emit('chats', 10);
     }
   }
-
-  const channelEnterButtons = 0 < channels.length ?
-    <div>
-      {
-        channels.map((channel) => <button key={channel.id} onClick={() => onEnterChannel(channel.id)}>{ channel.name }</button>)
-      }
-      <div>
-        <input type="text" value={chat} onChange={(e) => setChat(e.target.value)} />
-        <button onClick={onSendChat}>SEND</button>
-        <button onClick={onGetChats}>Get Chats</button>
-      </div>
-    </div> :
-    <div>
-      <p>채널이 없네요 만들어보세요!</p>
-    </div>;
 
   return (
     <section className="workspace_view">
