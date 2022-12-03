@@ -70,7 +70,6 @@ namespace.on('connection', async (socket) => {
       socket.join(channel_id);
       try {
         const chats = await chatService.getAllByChannelId({ channel_id });
-        console.log(chats);
         socket.emit('initChats', chats);
       } catch (error) {
         return;
