@@ -70,6 +70,7 @@ namespace.on('connection', async (socket) => {
       socket.join(channel_id);
       try {
         const chats = await chatService.getAllByChannelId({ channel_id });
+        console.log(chats);
         socket.emit('initChats', chats);
       } catch (error) {
         return;
@@ -89,7 +90,6 @@ namespace.on('connection', async (socket) => {
     });
     // 채팅 내역 요청
     socket.on('chats', async (offset: number, limit: number) => {
-      console.log(offset);
       if (!channel_id) return;
       try {
         const chats = await chatService.getAllByChannelId({

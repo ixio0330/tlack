@@ -22,7 +22,7 @@ class ChatStorage {
           inner join users u
           on c.user_id=u.id
         where channel_id='${channel_id}'
-        order by senttime desc
+        order by senttime
         limit ${limit}
         offset ${offset}
       `);
