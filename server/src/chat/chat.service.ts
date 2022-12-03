@@ -11,6 +11,10 @@ class ChatService {
     });
   }
 
+  async getByChatId(chat_id: string) {
+    return await chatStorage.getByChatId(chat_id);
+  }
+
   async getAllByChannelId(getChat: GetChatDto) {
     return await chatStorage.getAllByChannelId(getChat);
   }

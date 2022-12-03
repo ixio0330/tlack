@@ -78,14 +78,15 @@ namespace.on('connection', async (socket) => {
     // 채널에 접속한 사람에게 메시지 전달
     socket.on('chat', async (_chat) => {
       if (!channel_id) return;
-      // 메시지를 보낸 사람을 제외한 사람들에게 메시지 전달
-      socket.broadcast.to(channel_id).emit('chat', _chat);
       // 채팅 데이터 DB에 저장
-      await chatService.create({
+      const chatId = await chatService.create({
         channel_id,
         content: _chat,
         user_id: payload.user_id,
       });
+      const chatInfo = await chatService.getByChatId(chatId);
+      // 채널에 참여한 사람들에게 메시지 전달
+      socket.to(channel_id).emit('chat', chatInfo);
     });
     // 채팅 내역 요청
     socket.on('chats', async (offset: number, limit: number) => {

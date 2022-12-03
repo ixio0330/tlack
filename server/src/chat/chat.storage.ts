@@ -8,9 +8,25 @@ class ChatStorage {
         insert into chats (id, user_id, channel_id, content, senttime)
         values ('${id}', '${user_id}', '${channel_id}', '${content}', '${senttime}')
       `);
+      return id;
     } catch (error) {
       console.log(error);
       throw new Error('채팅 저장 중 문제가 발생했습니다.');
+    }
+  }
+
+  async getByChatId(chat_id:string) {
+    try {
+      const result = await database.query(`
+        select c.id, c.senttime, c.content, u.nickname 
+        from chats c
+          inner join users u
+          on c.user_id=u.id
+        where chat_id='${chat_id}'
+      `);
+      return result?.rows[0];
+    } catch (error) {
+      throw new Error('채팅을 읽어오던 중 문제가 발생했습니다.')
     }
   }
 
