@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+#snackbar {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  padding: 15px 30px;
+  border-radius: 5px;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#snackbar.info {
+  background-color: #1E88E5;
+}
+
+#snackbar.success {
+  background-color: #43A047;
+}
+
+#snackbar.warn {
+  background-color: #F9A825;
+}
+
+#snackbar.error {
+  background-color: #E53935;
+}
+
+#snackbar.none {
+  background-color: #555;
+}
+
+#snackbar_button {
+  all: unset;
+  margin-left: 50px;
+}

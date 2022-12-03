@@ -2,6 +2,8 @@ import http from ".";
 import { Response } from './response.dto';
 import { history } from "../App";
 import { getError } from "../utils/getError";
+import store from '../store';
+import { showSnackbar } from '../store/app';
 
 export type SinginDto = {
   id: string;
@@ -31,8 +33,8 @@ class AuthService {
       localStorage.setItem('REFRESH_TOKEN', response.token.refresh);
       history.replace('/');
     } catch (error) {
-      // TODO [Store] error update
-      console.log(getError(error).message);
+      const { message, type } = getError(error);
+      store.dispatch(showSnackbar({ message, type }));
     }
   }
 
@@ -41,8 +43,8 @@ class AuthService {
       await this.apiSingup(info);
       history.replace('/signin');
     } catch (error) {
-      // TODO [Store] error update
-      console.log(getError(error).message);
+      const { message, type } = getError(error);
+      store.dispatch(showSnackbar({ message, type }));
     }
   }
 

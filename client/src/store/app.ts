@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { SnackbarType } from '../components/snackbar/snackbar';
 
-type SnackbarType = 'info' | 'success' | 'warn' | 'error' | 'none';
 const snackbarInitalState = {
   type: 'none' as SnackbarType,
   message: '',
   show: false,
-  timeout: 2000,
+  timeout: 3000,
 };
 
 const appSlice = createSlice({
@@ -14,15 +14,19 @@ const appSlice = createSlice({
     snackbar: { ...snackbarInitalState }
   },
   reducers: {
-    showSnackbar(state, { payload: { message, type = 'info' , show = true, timeout = 2000 } }) {
-      state.snackbar.show = show;
+    showSnackbar(state, { payload: { message, type = 'info' } }) {
+      state.snackbar.show = true;
       state.snackbar.message = message;
       state.snackbar.type = type;
-      state.snackbar.timeout = timeout;
+    },
+    resetSnackbar(state) {
+      state.snackbar.show = false;
+      state.snackbar.message = '';
+      state.snackbar.type = 'none';
     }
   },
 });
 
-export const { showSnackbar } = appSlice.actions;
+export const { showSnackbar, resetSnackbar } = appSlice.actions;
 
 export default appSlice.reducer;

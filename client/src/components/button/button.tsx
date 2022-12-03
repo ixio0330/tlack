@@ -8,5 +8,5 @@ interface ButtonProps {
 }
 
 export default function Button({ value, onClick, disabled }: ButtonProps) {
-  return <button disabled={disabled} onClick={onClick}>{value}</button>
+  return <button id="button" disabled={disabled} onClick={onClick}>{value}</button>
 }

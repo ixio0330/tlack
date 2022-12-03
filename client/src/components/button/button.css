@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-button {
+#button {
   width: 100%;
   padding: 13px 0;
   background-color: rgb(89, 36, 187);
@@ -12,11 +12,11 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+#button:hover {
   background-color: rgb(58, 23, 124);
 }
 
-button:disabled {
+#button:disabled {
   cursor: default;
   background-color: rgba(89, 36, 187, 0.712);
 }
