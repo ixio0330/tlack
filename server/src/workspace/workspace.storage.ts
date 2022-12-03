@@ -76,7 +76,6 @@ class WorkspaceStorage {
           on w.id=iw.workspace_id 
         where iw.user_id='${user_id}'
       `);
-      console.log(result?.rows)
       return result?.rows;
     } catch (error) {
 
