@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import socketService from '../../api/socket.service';
 
 import './channel.css';
 
@@ -8,31 +9,40 @@ export default function ChannelView() {
   const channel = useSelector((state: RootState) => state.socket.channel);
   
   useEffect(() => {
-    // try {
+    try {
+      socketService.socket?.on('join', (join) => {
+        console.log(join);
+      });
+      socketService.socket?.on('disconnect', (info) => {
+        console.log(info);
+      });
+      socketService.socket?.on('initChats', (chats) => {
+        console.log(chats);
+      });
+      socketService.socket?.on('chat', (chat) => {
+        console.log(chat);
+      });
+      socketService.socket?.on('chats', (chats) => {
+        console.log(chats);
+      });
+    } catch (error) {
 
-    //   socket.on('join', (join) => {
-    //     console.log(join);
-    //   });
-
-    //   socket.on('disconnect', (info) => {
-    //     console.log(info);
-    //   });
-
-    //   socket.on('initChats', (chats) => {
-    //     console.log(chats);
-    //   });
-
-    //   socket.on('chat', (chat) => {
-    //     console.log(chat);
-    //   });
-
-    //   socket.on('chats', (chats) => {
-    //     console.log(chats);
-    //   });
-    // } catch (error) {
-
-    // }
+    }
   });
+
+  // function onSendChat() {
+  //   if (socket) {
+  //     if (!chat) return;
+  //     socket.emit('chat', chat);
+  //     setChat('');
+  //   }
+  // }
+
+  // function onGetChats() {
+  //   if (socket) {
+  //     socket.emit('chats', 10);
+  //   }
+  // }
 
   return (
     <div className="channel_view">

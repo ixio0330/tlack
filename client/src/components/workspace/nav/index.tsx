@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { useState } from 'react';
 import { useDispatch } from "react-redux";
-import { enterChannel } from '../../../store/socket';
+import { enterChannel } from '../../../store/service';
 import { RootState } from '../../../store';
 import { useSelector } from 'react-redux';
+import socketService from "../../../api/socket.service";
 
 export default function Nav() {
   const workspace = useSelector((state: RootState) => state.socket.workspace);
@@ -14,6 +15,15 @@ export default function Nav() {
   const onClickChannel = (id: string, name: string) => {
     setSelectChannel(id);
     dispatch(enterChannel({ id, name}));
+    if (id !== channel.id) {
+      onEnterChannel(id);
+    }
+  };
+
+  const onEnterChannel = (channel_id: string) => {
+    if (socketService.socket) {
+      socketService.socket.emit('join', channel_id);
+    }
   };
 
   return (

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import app from './app';
-import socket from './socket';
+import socket from './service';
 
 const RootReducer = configureStore({
   reducer: {

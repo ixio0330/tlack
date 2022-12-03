@@ -1,10 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { io, Socket, ManagerOptions, SocketOptions } from 'socket.io-client';
 import { ChannelDto } from '../api/channel.service';
-
-const socketInitalState = {
-  io: null as any,
-};
 
 const worspaceInitalState = {
   id: '',
@@ -20,24 +15,11 @@ const channelInitalState = {
 const socketSlice = createSlice({
   name: 'socket',
   initialState: {
-    sokcet: { ...socketInitalState },
     workspace: { ...worspaceInitalState },
     channel: { ...channelInitalState },
   },
   reducers: {
-    connectSokcet(state, action) {
-      state.sokcet.io = io(action.payload.url, { 
-        path: '/socket.io', 
-        auth: 
-          { 
-            token: localStorage.getItem('ACCESS_TOKEN') 
-          } 
-      });
-    },
-    disconnectSocket(state) {
-      state.sokcet.io?.disconnect();
-      state.sokcet.io = null;
-    },
+    
     enterWorkspace(state, action) {
       state.workspace.id = action.payload.id;
       state.workspace.name = action.payload.name;
@@ -52,6 +34,6 @@ const socketSlice = createSlice({
   },
 });
 
-export const { connectSokcet, disconnectSocket, enterChannel, enterWorkspace, setChannelList } = socketSlice.actions;
+export const { enterChannel, enterWorkspace, setChannelList } = socketSlice.actions;
 
 export default socketSlice.reducer;

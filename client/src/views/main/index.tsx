@@ -6,7 +6,7 @@ import NewWorkspaceModal from '../../components/modal/newWorkspace';
 import Button from '../../components/button/button';
 import { FcTreeStructure } from 'react-icons/fc';
 import { useDispatch } from "react-redux";
-import { enterWorkspace } from '../../store/socket';
+import { enterWorkspace } from '../../store/service';
 
 import './main.css';
 
