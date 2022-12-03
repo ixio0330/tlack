@@ -1,12 +1,20 @@
 import { lazy, Suspense } from 'react';
+
+// Router
 import { Routes, Route, unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
-import Snackbar from './components/snackbar/snackbar';
 import { createBrowserHistory } from 'history';
+
+// Store
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from './store';
 import { resetSnackbar } from './store/app';
+
+// Components
+import Snackbar from './components/snackbar/snackbar';
+
 export const history = createBrowserHistory();
 
+// lazy loading
 const SigninView = lazy(() => import('./views/signin'));
 const SignupView = lazy(() => import('./views/signup'));
 const MainView = lazy(() => import('./views/main'));

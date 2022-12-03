@@ -4,6 +4,11 @@ import { FcTreeStructure } from 'react-icons/fc';
 // CSS
 import './sign.css';
 
+/**
+ * 로그인, 회원가입 화면 레이아웃
+ * @param props 
+ * @returns ReactNode
+ */
 export default function SingLayout(props: { children: ReactNode, title: string }) {
   const { children, title } = props;
   return (

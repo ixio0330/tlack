@@ -1,26 +1,33 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import signRules from '../../rules/sign';
-
 // Component
 import SingLayout from '../../layouts/sing';
-import InputField from "../../components/form/inputField"
+import InputField from "../../components/form/inputField";
 import Button from '../../components/button/button';
 
 // hook
-import useInput from "../../hooks/useInput"
+import useInput from "../../hooks/useInput";
+
 // api
 import authService from "../../api/auth.service";
 
+// Validation rules
+import signRules from '../../rules/sign';
+
+/**
+ * 회원가입 View 컴포넌트
+ * @returns ReactNode
+ */
 export default function SignupView() {
   const { value: id , onChange: onChangeId, setValue: setId } = useInput('');
   const { value: pw, onChange: onChnagePw, setValue: setPw } = useInput('');
   const { value: nickname, onChange: onChangeNickname, setValue: setNickname } = useInput('');
-  async function onClickSignup() {
-    if (!isValid()) {
-      return;
-    }
+
+  /**
+   * 회원가입 클릭 이벤트
+   */
+  const onClickSignup = async () => {
     await authService.singup(
       {
         id: id as string,
@@ -28,8 +35,13 @@ export default function SignupView() {
         nickname: nickname as string
       }
     );
-  }
-  const isValid = () => {
+  };
+
+  /**
+   * 이메일, 닉네임, 비밀번호 유효성 검사
+   * @return {boolean} 검사 결과
+   */
+  const isValid = (): boolean => {
     if (
       !id || 
       !pw || 
@@ -41,7 +53,9 @@ export default function SignupView() {
     }
     return true;
   };
+
   useEffect(() => {
+    // component distroy시 state 초기화
     return () => {
       setId('');
       setPw('');

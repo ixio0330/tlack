@@ -12,6 +12,9 @@ interface SncakbarProps {
   resetSnackbar: Function;
 }
 
+/**
+ * Snackbar 컴포넌트
+ */
 export default function Snackbar(
   { 
     message, 
@@ -21,6 +24,7 @@ export default function Snackbar(
     resetSnackbar,
   }: SncakbarProps
 ) {
+  // 초기 state
   const [isShow, setIsShow] = useState(false);
 
   useEffect(() => {
@@ -30,6 +34,9 @@ export default function Snackbar(
     }
   }, [show]);
 
+  /**
+   * timeout 후 snackbar 비활성화
+   */
   const setTimeoutSnackbar = (timeout: number) => {
     setTimeout(() => {
       setIsShow(false);

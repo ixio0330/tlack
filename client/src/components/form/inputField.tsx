@@ -13,6 +13,9 @@ interface InputFieldProps {
   placeholder?: string;
 }
 
+/**
+ * Input 컴포넌트
+ */
 export default function InputField(
   {
     id = v1(),
@@ -26,6 +29,7 @@ export default function InputField(
   }: InputFieldProps) {
   const [valid, setValid] = useState('');
 
+  // value가 변경될 때 유효성 검사
   useEffect(() => {
     if (!rules) return;
     if (0 < rules.length) {
