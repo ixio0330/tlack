@@ -86,7 +86,7 @@ namespace.on('connection', async (socket) => {
       });
       const chatInfo = await chatService.getByChatId(chatId);
       // 채널에 참여한 사람들에게 메시지 전달
-      socket.to(channel_id).emit('chat', chatInfo);
+      namespace.to(channel_id).emit('chat', chatInfo);
     });
     // 채팅 내역 요청
     socket.on('chats', async (offset: number, limit: number) => {
