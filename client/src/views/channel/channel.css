@@ -40,7 +40,32 @@
 
 .channel_view .editor {
   flex-shrink: 0;
-  border: 1px solid rgb(126, 126, 126);
   border-radius: 5px;
-  height: 180px;
+  height: 50px;
+  width: 100%;
+  position: relative;
+}
+
+.channel_view .editor button {
+  all: unset;
+  cursor: pointer;
+  position: absolute;
+  right: 0px;
+  padding: 7px 20px;
+  font-size: 20px;
+  transition: .2s;
+  color: rgb(104, 53, 199);
+}
+
+.channel_view .editor button:hover {
+  color: rgb(58, 23, 124);
+}
+
+.channel_view .editor input {
+  width: calc(100% - 70px);
+  padding: 10px 50px 10px 10px;
+}
+
+.channel_view .editor input:focus {
+  outline: 2px solid rgba(0, 140, 255, 0.452);
 }

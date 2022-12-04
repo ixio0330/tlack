@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, ChangeEvent } from 'react';
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import socketService from '../../api/socket.service';
+import Editor from '../../components/editor';
 import './channel.css';
 
 type Chat = {
@@ -26,13 +27,13 @@ export default function ChannelView() {
         setChats(chats);
       });
       socketService.socket?.on('chat', (chat) => {
-        console.log(chat);
+        setChats([...chats, chat]);
       });
-      socketService.socket?.on('chats', (chats) => {
-        console.log(chats);
-      });
+      // socketService.socket?.on('chats', (chats) => {
+      //   console.log(chats);
+      // });
     } catch (error) {
-
+      console.log(error);
     }
   });
 
@@ -69,10 +70,12 @@ export default function ChannelView() {
             }
           </ul>
         </div>
-        <div className="editor">  
-          <input type="text" value={chat} onChange={(e) => setChat(e.target.value)} />
-          <button onClick={onSendChat}>send</button>
-        </div>
+        <Editor 
+          value={chat} 
+          onChange={(e) => setChat(e.target.value)}
+          onClick={onSendChat}
+          onEnter={onSendChat} 
+        />
       </div>
     </div>
   )
