@@ -22,6 +22,15 @@ interface GetChannel extends Response {
 }
 
 class ChannelService {
+  async getAllChannels(workspace_id: string): Promise<GetChannel | undefined> {
+    try {
+      return await http.get(`/channel?workspace_id=${workspace_id}`);
+    } catch (error) {
+      const { message, type } = getError(error);
+      store.dispatch(showSnackbar({ message, type }));
+    }
+  }
+
   async create(channel: CreateChannelDto): Promise<boolean> {
     let result = {} as Response;
     try {

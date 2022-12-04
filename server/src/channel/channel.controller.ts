@@ -3,7 +3,6 @@ import withAsync from '../utils/withAsync';
 import channelService from './channel.service';
 import tokenMiddleware from '../middleware/token';
 
-
 const router = express.Router();
 
 router.post('/', tokenMiddleware, withAsync(async (req, res) => {
@@ -18,8 +17,8 @@ router.post('/', tokenMiddleware, withAsync(async (req, res) => {
 }));
 
 router.get('/', tokenMiddleware, withAsync(async (req, res) => {
-  console.log(req.body);
-  const channel_list = await channelService.getAllInvitedChannles(req.body.workspace_id, req.body.user_id);
+  const workspace_id = req.query.workspace_id as string;
+  const channel_list = await channelService.getAllInvitedChannles(workspace_id, req.body.user_id);
   
   res.send({
     name: '채널 조회 성공',
