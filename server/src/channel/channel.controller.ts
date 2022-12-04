@@ -17,4 +17,16 @@ router.post('/', tokenMiddleware, withAsync(async (req, res) => {
   });
 }));
 
+router.get('/', tokenMiddleware, withAsync(async (req, res) => {
+  console.log(req.body);
+  const channel_list = await channelService.getAllInvitedChannles(req.body.workspace_id, req.body.user_id);
+  
+  res.send({
+    name: '채널 조회 성공',
+    type: 'success',
+    message: '채널을 조회했습니다.',
+    channel_list
+  });
+}));
+
 export default router;
