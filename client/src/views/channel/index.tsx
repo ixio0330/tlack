@@ -37,13 +37,17 @@ export default function ChannelView() {
     }
   });
 
-  function onSendChat() {
+  const onSendChat = () => {
     if (socketService.socket) {
       if (!chat) return;
       socketService.socket.emit('chat', chat);
       setChat('');
     }
-  }
+  };
+
+  const getLocalTime = (time: string) => {
+    return new Date(`${time} UTC`).toLocaleString();
+  };
 
   // function onGetChats() {
   //   if (socket) {
@@ -62,7 +66,7 @@ export default function ChannelView() {
                 <li key={index} className='chat_item'>
                   <div className="user_profile">{chat.nickname.slice(0, 2)}</div>
                   <div className="chat_info">
-                    <h4>{chat.nickname}</h4>
+                    <h4><span>{chat.nickname}</span> <span className='chat_senttime'>{getLocalTime(chat.senttime)}</span></h4>
                     <p>{chat.content}</p>
                   </div>
                 </li>

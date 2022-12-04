@@ -14,7 +14,7 @@ interface NewChannelModalProps {
   show: boolean;
   onClickOk: (channel: CreateChannelDto) => Promise<boolean>;
   onClickCancle: () => void;
-  afterOk: () => void;
+  afterOk: any;
 }
 
 export default function NewChannelModal({ show, onClickOk, onClickCancle, afterOk }: NewChannelModalProps) {

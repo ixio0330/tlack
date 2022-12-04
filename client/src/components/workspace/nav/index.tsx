@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from 'react';
 import { useDispatch } from "react-redux";
-import { enterChannel } from '../../../store/service';
+import { enterChannel, setChannelList } from '../../../store/service';
 import { RootState } from '../../../store';
 import { useSelector } from 'react-redux';
 import socketService from "../../../api/socket.service";
@@ -29,6 +29,11 @@ export default function Nav() {
     }
   };
 
+  const afterCreateChannel = async (workspace_id: string) => {
+    const channel_list = await channelService.getAllChannels(workspace_id);
+    dispatch(setChannelList({ list: channel_list?.channel_list }));
+  };
+
   return (
     <nav>
       <h2>{workspace.name}</h2>
@@ -52,7 +57,7 @@ export default function Nav() {
       <NewChannelModal 
         show={newChannel}
         onClickOk={channelService.create}
-        afterOk={() => {}}
+        afterOk={() => afterCreateChannel(workspace.id)}
         onClickCancle={() => setNewChannel(false)}
       />
     </nav>

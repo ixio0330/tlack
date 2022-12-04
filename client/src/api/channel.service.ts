@@ -18,7 +18,7 @@ export type CreateChannelDto = {
 }
 
 interface GetChannel extends Response {
-  channel_list: ChannelDto
+  channel_list: ChannelDto[]
 }
 
 class ChannelService {
@@ -35,7 +35,6 @@ class ChannelService {
     let result = {} as Response;
     try {
       const response = await http.post('/channel', { ...channel }) as Response;
-      console.log(response);
       result = getError(response);
       return true;
     } catch (error) {
