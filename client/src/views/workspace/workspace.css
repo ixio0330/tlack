@@ -30,8 +30,31 @@
   width: 280px;
   box-sizing: border-box;
   background-color: rgb(51, 23, 104);
-  color: #fff;
   flex-shrink: 0;
+}
+
+.workspace_view nav a, 
+.workspace_view nav h2 {
+  color: #fff;
+}
+
+.workspace_view nav button {
+  all: unset;
+  border: 1px solid rgba(255, 255, 255, 0.623);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  cursor: pointer;
+  transition: .2s;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.workspace_view nav button:hover {
+  background-color: #fff;
+  color: rgb(89, 36, 187);
 }
 
 .workspace_view nav li {

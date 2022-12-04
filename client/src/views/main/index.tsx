@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import authService from '../../api/auth.service';
-import workspaceService, { WorkspaceList } from '../../api/workspace.service';
+import workspaceService, { WorkspaceDto } from '../../api/workspace.service';
 import NewWorkspaceModal from '../../components/modal/newWorkspace';
 import Button from '../../components/button/button';
 import { FcTreeStructure } from 'react-icons/fc';
@@ -13,7 +13,7 @@ import './main.css';
 export default function MainView() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [workspaces, setWorkspaces] = useState([] as WorkspaceList);
+  const [workspaces, setWorkspaces] = useState([] as WorkspaceDto);
   const [newWorkspace, setNewWrokspace] = useState(false);
   const checkToken = async () => {
     function replaceToSignin() {

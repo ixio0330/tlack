@@ -4,7 +4,7 @@ import { getError } from "../utils/getError";
 import store from '../store';
 import { showSnackbar } from '../store/app';
 
-export type WorkspaceList = {
+export type WorkspaceDto = {
   id: string;
   name: string;
 }[];
@@ -16,7 +16,7 @@ export type CreateWorkspaceDto = {
 }
 
 interface GetWorkspace extends Response {
-  workspace_list: WorkspaceList
+  workspace_list: WorkspaceDto
 }
 
 class WorkspaceService {
@@ -37,8 +37,9 @@ class WorkspaceService {
       return true;
     } catch (error) {
       result = getError(error);
+    } finally {
+      store.dispatch(showSnackbar({ message: result.message, type: result.type }));
     }
-    store.dispatch(showSnackbar({ message: result.message, type: result.type }));
     return false;
   }
 }
