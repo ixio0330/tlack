@@ -4,10 +4,13 @@ import { generateShortUuid } from 'custom-uuid';
 
 class ChatService {
   async create(chat: CreateChatDto) {
+    const time = new Date().toISOString().split('T');
+    const senttime = `${time[0]} ${time[1].slice(0, -2)}`;
+    
     return await chatStorage.create({
       ...chat,
       id: generateShortUuid(),
-      senttime: new Date().toISOString(),
+      senttime,
     });
   }
 
