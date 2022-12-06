@@ -12,6 +12,7 @@ import { resetSnackbar } from './store/app';
 // Components
 import Snackbar from './components/snackbar/snackbar';
 import Spinner from './components/loading/spinner';
+import ChannelView from './views/channel';
 
 export const history = createBrowserHistory();
 
@@ -20,7 +21,6 @@ const SigninView = lazy(() => import('./views/signin'));
 const SignupView = lazy(() => import('./views/signup'));
 const MainView = lazy(() => import('./views/main'));
 const WorkspaceView = lazy(() => import('./views/workspace'));
-const ChannelView = lazy(() => import('./views/channel'));
 
 function App() {
   const { message, show, timeout, type } = useSelector((state: RootState) => state.app.snackbar);
