@@ -11,6 +11,7 @@ import { resetSnackbar } from './store/app';
 
 // Components
 import Snackbar from './components/snackbar/snackbar';
+import Spinner from './components/loading/spinner';
 
 export const history = createBrowserHistory();
 
@@ -26,7 +27,7 @@ function App() {
   const dispatch = useDispatch();
   return (
     <HistoryRouter history={history}>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Spinner />}>
         <main>
           <Snackbar 
             show={show} 
